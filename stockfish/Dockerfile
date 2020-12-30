@@ -5,9 +5,8 @@ ENV PORT=54321
 RUN DEPENDS="curl ca-certificates unzip build-essential" && \
     apt-get update && \
     apt-get -y install --no-install-recommends xinetd tcpd $DEPENDS && \
-    apt-get clean
-
-RUN set -e -x && \
+    apt-get clean && \
+    set -e -x && \
     curl -L https://github.com/official-stockfish/Stockfish/archive/master.zip -o master.zip && \
     unzip master.zip && \
     rm master.zip && \
@@ -23,6 +22,6 @@ COPY stockfish.conf /etc/xinetd.d/stockfish
 RUN useradd -m netuser && \
     sed -i "s/54321/$PORT/g" /etc/xinetd.d/stockfish
 
-EXPOSE $PORT
+EXPOSE $PORT/tcp
 
 CMD ["xinetd", "-dontfork"]
