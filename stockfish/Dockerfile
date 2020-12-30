@@ -2,9 +2,9 @@ FROM debian:latest
 
 ENV PORT=54321
 
-RUN DEPENDS="xinetd tcpd curl ca-certificates unzip build-essential" && \
+RUN DEPENDS="curl ca-certificates unzip build-essential" && \
     apt-get update && \
-    apt-get -y install --no-install-recommends $DEPENDS && \
+    apt-get -y install --no-install-recommends xinetd tcpd $DEPENDS && \
     apt-get clean
 
 RUN set -e -x && \
