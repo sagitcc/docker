@@ -17,6 +17,8 @@ RUN set -e -x && \
 
 COPY stockfish.conf /etc/xinetd.d/stockfish
 
+RUN useradd -m netuser
+
 EXPOSE 54321/tcp
 
 CMD ["xinetd", "-dontfork"]
